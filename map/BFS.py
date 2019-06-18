@@ -27,7 +27,7 @@ class Graph(object):
 
 
 
-    #不会写 
+    #不会写
     def DFS(self,start):
 
         visited = [False] * len(self.graph)
