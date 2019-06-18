@@ -1,7 +1,7 @@
 '''
 邻接表，有向图, 实现BFS,DFS
 '''
-from collections import defaultdict
+from collections import defaultdict,deque
 class Graph(object):
     def __init__(self):
         self.graph = defaultdict(list)
@@ -11,18 +11,18 @@ class Graph(object):
 
 
     def BFS(self,start):
-        queue = []
+        Q = deque()
         visited = [False] * len(self.graph)
 
-        queue.append(start)
+        Q.append(start)
         visited[start] = True
 
-        while queue:
-            s = queue.pop()
+        while Q:
+            s = Q.popleft()
             print(s,end=' ')
             for i in self.graph.get(s):
                 if not visited[i]:
-                    queue.append(i)
+                    Q.append(i)
                     visited[i] = True
 
 
@@ -43,8 +43,27 @@ class Graph(object):
                 self.DFSUtil(i,visited)
 
 
+def rec_dfs(G,s,S=None):
+    if S is None:
+        S = []
+    S.append(s)
+    for u in G.graph[s]:
+        if u in S:
+            continue
+        rec_dfs(G,u,S)
+    return S
 
 
+def iter_dfs(G,s):
+    S,Q=set(),[]
+    Q.append(s)
+    while Q:
+        u = Q.pop()
+        if u in S:
+            continue
+        S.add(u)
+        Q.extend(G.graph[u])
+        yield u
 
 
 if __name__ == "__main__":
@@ -56,5 +75,7 @@ if __name__ == "__main__":
     g.addEdge(2, 3)
     g.addEdge(3, 3)
 
-    #g.BFS(2)
-    g.DFS(2)
+    g.BFS(2)
+    # g.DFS(2)
+    # print(rec_dfs(g,2))
+    # print(list(iter_dfs(g, 2)))
