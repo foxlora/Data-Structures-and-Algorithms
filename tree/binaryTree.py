@@ -55,6 +55,19 @@ class binary_search_tree:
         self.__preorder(root.left)
         self.__preorder(root.right)
 
+    def preorder_iter(self):
+        s,res = [],[]
+        root = self.root
+        s.append(root)
+        while s:
+            u = s.pop()
+            if u:
+                res.append(u.key)
+                s.append(u.right)
+                s.append(u.left)
+        return res
+
+
 
     def inorder(self):
         print('inorder: ',end='')
@@ -67,6 +80,28 @@ class binary_search_tree:
         self.__inorder(root.left)
         print(root.key,end=' ')
         self.__inorder(root.right)
+
+
+
+
+
+    def inorder_iter(self):
+        root = self.root
+        s,res = [],[]
+
+        while root or s:
+            if root:
+                s.append(root)
+                root = root.left
+            else:
+                root = s.pop()
+                res.append(root.key)
+                root = root.right
+        return res
+
+
+
+
 
     def postorder(self):
         print('postorder: ',end='')
@@ -82,6 +117,23 @@ class binary_search_tree:
         print(root.key,end=' ')
 
 
+
+    def postorder_iter(self):
+        root = self.root
+        s,res = [],[]
+        s.append(root)
+        a = []
+        while s:
+            u = s.pop()
+            res.append(u)
+            if u.left:
+                s.append(u.left)
+            if u.right:
+                s.append(u.right)
+        while res:
+            a.append(res.pop().key)
+
+        return a
 
 #实现插入操作
     def insert(self, key):
@@ -199,16 +251,16 @@ class binary_search_tree:
 def main():
     import random
     root = binary_search_tree()
-    # for i in random.sample([j for j in range(100)], 15):
-    #     root.insert(i)
-    for j in range(20):
-        root.insert(j)
-    root.insert(24)
-    root.insert(72)
-
-    print(root.find(72))
+    for i in random.sample([j for j in range(100)], 15):
+        root.insert(i)
+    # for j in range(20):
+    #     root.insert(j)
 
 
+
+    print(root.preorder_iter())
+    print(root.inorder_iter())
+    print(root.postorder_iter())
     root.preorder()
     root.inorder()
     root.postorder()
