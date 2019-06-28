@@ -4,6 +4,7 @@
 '''
 
 class Solution:
+    #递归版本1
     def Permutation(self, ss):
         if not ss:
             return []
@@ -18,16 +19,39 @@ class Solution:
             for i in range(len(ss)):
                 self.helper(ss[:i] + ss[i+1:], res, path + ss[i])
 
-    def helper_iter(self,ss,res,path):
-        if not ss:
-            res.append(path)
-        s = [ss]
+
+    #递归版本2
+
+    def Permutation2(self, ss):
+        list = []
+        if len(ss) <= 1:
+            return ss
+        for i in range(len(ss)):
+            for j in map(lambda x: ss[i] + x,
+                         self.Permutation(ss[:i] + ss[i + 1:])):
+                # 生成每个排好序的字符串（lambda补全每个循环中返回字符串的头部）
+                if j not in list:  # 这里的判断可以消除重复值的影响
+                    list.append(j)
+        return list
+
+
+
+    def permutation_iter(self,ss):
+        res = []
+        if len(ss) <= 1:
+            return ss
+        pre = ""
+        s = [(ss,pre)]
         while s:
-            u = s.pop()
+            u,pre = s.pop()
+            if not u:
+                if pre not in res:
+                    res.append(pre)
             for i in range(len(u)):
-                s.append(ss[:i] + ss[i+1:])
+                s.append((u[:i] + u[i+1:],pre + u[i]))
+        return res
 
 
 s = Solution()
-b = s.Permutation('xlf')
+b = s.permutation_iter('xlf')
 print(b)
