@@ -45,5 +45,6 @@ class Solution:
         return res
 if __name__ == '__main__':
     s = Solution()
-    a = s.permuteUnique([1,1,2])
-    print(a)
+    a = s.permuteUnique(['(','(,''(',')',')',')'])
+    b = s.permuteUnique([1,1,2])
+    print(b)
