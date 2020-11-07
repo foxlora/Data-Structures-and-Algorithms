@@ -57,8 +57,8 @@ def insert_sort(array):
 
 '''快速排序'''
 #def quck_sort(array):
-quick_sort0 = lambda array: array if len(array) <= 1 else quick_sort(
-        [item for item in array[1:] if item <= array[0]]) + [array[0]] + quick_sort(
+quick_sort0 = lambda array: array if len(array) <= 1 else quick_sort0(
+        [item for item in array[1:] if item <= array[0]]) + [array[0]] + quick_sort0(
         [item for item in array[1:] if item > array[0]])
 
 def quick_sort(array, left, right):
