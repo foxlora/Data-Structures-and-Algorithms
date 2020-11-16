@@ -40,4 +40,3 @@ class Solution:
                 b ^= n
         return [a, b]
 
-
