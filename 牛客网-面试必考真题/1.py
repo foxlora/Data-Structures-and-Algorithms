@@ -1,4 +1,8 @@
 
+import numpy as np
 
-b = -15
-print(hex(b))
+a = np.array([1,1,1,1])
+b = np.array([[2,2,2,2],[3,3,3,3]])
+c = a.dot(b)
+print(c)
+
